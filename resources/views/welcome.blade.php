@@ -108,7 +108,6 @@
                 <a href="https://github.com/mty09" class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/eliakym-kodah-bba024370?utm_source=share_via&utm_content=profile&utm_medium=member_android" 
                 class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="eliakymkodah09@gmail.com" class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-envelope"></i></a>
             </div>
 
             <!-- Boutons d'action -->
