@@ -53,23 +53,54 @@
                 </ul>
                 
                 <div class="flex items-center gap-6 pl-6 border-l border-gray-300 dark:border-slate-700">
-                    <!-- BOUTON THEME -->
                     <button onclick="toggleTheme()" class="text-xl text-gray-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition">
                         <i id="theme-icon-light" class="fa-solid fa-sun hidden dark:block"></i>
                         <i id="theme-icon-dark" class="fa-solid fa-moon block dark:hidden"></i>
                     </button>
-
-                    <!-- BOUTON LANGUE -->
                     <button onclick="toggleLang()" class="flex items-center gap-1.5 text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition border border-gray-300 dark:border-slate-700 px-2 py-1 rounded">
                         <span id="lang-text">EN</span> <i class="fa-solid fa-globe"></i>
                     </button>
-
-                    <!-- BOUTON TELECHARGER CV -->
                     <a href="/storage/cv/mon_cv.pdf" target="_blank" class="px-5 py-2.5 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-lg transition shadow-lg shadow-pink-500/30 flex items-center gap-2 text-sm">
                         <span data-i18n="btn_cv">Download CV</span> <i class="fa-solid fa-download"></i>
                     </a>
                 </div>
             </nav>
+
+            <!-- BOUTON MOBILE (Hamburger) -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-gray-900 dark:text-white p-2">
+                <i id="menu-icon" class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- MENU MOBILE OVERLAY -->
+        <div id="mobile-menu" class="hidden fixed inset-0 top-[72px] bg-white dark:bg-[#0b1120] z-40 p-6 flex flex-col gap-8 md:hidden transition-all duration-300 border-t border-gray-100 dark:border-slate-800">
+            <ul class="flex flex-col gap-6 font-bold text-lg">
+                <li><a href="#home" onclick="toggleMobileMenu()" data-i18n="nav_home">Home</a></li>
+                <li><a href="#journey" onclick="toggleMobileMenu()" data-i18n="nav_journey">Journey</a></li>
+                <li><a href="#skills" onclick="toggleMobileMenu()" data-i18n="nav_skills">Skills</a></li>
+                <li><a href="#projets" onclick="toggleMobileMenu()" data-i18n="nav_portfolio">Portfolio</a></li>
+                <li><a href="#contact" onclick="toggleMobileMenu()" data-i18n="nav_contact">Contact</a></li>
+            </ul>
+            
+            <div class="pt-8 border-t border-gray-100 dark:border-slate-800 flex flex-col gap-6">
+                <div class="flex items-center justify-between">
+                    <span class="font-bold">Dark Mode</span>
+                    <button onclick="toggleTheme()" class="text-2xl text-cyan-500">
+                        <i id="mobile-theme-icon-light" class="fa-solid fa-sun hidden dark:block"></i>
+                        <i id="mobile-theme-icon-dark" class="fa-solid fa-moon block dark:hidden"></i>
+                    </button>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="font-bold">Language</span>
+                    <button onclick="toggleLang()" class="flex items-center gap-2 font-bold text-cyan-500 border border-cyan-500 px-4 py-2 rounded-xl">
+                        <span id="mobile-lang-text">EN</span> <i class="fa-solid fa-globe"></i>
+                    </button>
+                </div>
+                <a href="/storage/cv/mon_cv.pdf" target="_blank" class="w-full justify-center py-4 bg-pink-600 text-white font-bold rounded-2xl shadow-xl shadow-pink-500/20 flex items-center gap-3">
+                    <span data-i18n="btn_cv">Download CV</span> <i class="fa-solid fa-download"></i>
+                </a>
+            </div>
+        </div>
         </div>
     </header>
 
@@ -383,71 +414,101 @@
             }
         };
 
+    <script>
+        // --- GESTION DU THÈME ---
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // --- GESTION DU MENU MOBILE ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        }
+
+        // --- GESTION DE LA LANGUE ---
+        const translations = {
+            fr: {
+                nav_home: "Accueil", nav_journey: "Parcours", nav_skills: "Compétences", nav_portfolio: "Projets", nav_contact: "Contact",
+                btn_cv: "Télécharger CV", hero_hello: "Bonjour, je suis", hero_and: "Et je suis", btn_hire: "Voir Mes Projets",
+                btn_contact: "Contactez-moi", stats_empty: "Aucune statistique pour le moment.",
+                journey_title_1: "Mon", journey_title_2: "Parcours", journey_title_3: "& Certifications",
+                journey_empty: "Aucune formation ou réalisation pour le moment.",
+                skills_title_1: "Compétences", skills_title_2: "Techniques",
+                portfolio_title_1: "Derniers", portfolio_title_2: "Projets",
+                btn_view_site: "Voir le site", tech_stack: "Technologies",
+                contact_title_1: "Contactez-", contact_title_2: "Moi",
+                contact_subtitle: "Vous avez un projet en tête ou une question ? Laissez-moi un message !",
+                placeholder_name: "Nom Complet", placeholder_company: "Profession / Entreprise",
+                placeholder_email: "Adresse Email", placeholder_message: "Votre Message...", btn_send: "Envoyer Message"
+            },
+            en: {
+                nav_home: "Home", nav_journey: "Journey", nav_skills: "Skills", nav_portfolio: "Portfolio", nav_contact: "Contact",
+                btn_cv: "Download CV", hero_hello: "Hello, I'm", hero_and: "And I'm a", btn_hire: "See My Projects",
+                btn_contact: "Contact Me", stats_empty: "No statistics at the moment.",
+                journey_title_1: "My", journey_title_2: "Journey", journey_title_3: "& Certifications",
+                journey_empty: "No education or achievement at the moment.",
+                skills_title_1: "Technical", skills_title_2: "Skills",
+                portfolio_title_1: "Latest", portfolio_title_2: "Projects",
+                btn_view_site: "Visit Website", tech_stack: "Tech Stack",
+                contact_title_1: "Contact", contact_title_2: "Me",
+                contact_subtitle: "Have a project in mind or a question? Leave me a message!",
+                placeholder_name: "Full Name", placeholder_company: "Profession / Company",
+                placeholder_email: "Email Address", placeholder_message: "Your Message...", btn_send: "Send Message"
+            }
+        };
+
         function setLanguage(lang) {
-            // 1. Traduction des éléments avec data-i18n
+            localStorage.setItem('lang', lang);
+            
+            // 1. Mise à jour des textes de toggle
+            const langTexts = ['lang-text', 'mobile-lang-text'];
+            langTexts.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = lang.toUpperCase();
+            });
+
+            // 2. Traduction statique (data-i18n)
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    el.innerText = translations[lang][key];
-                }
+                if (translations[lang][key]) el.innerText = translations[lang][key];
             });
 
-            // 2. Traduction des placeholders
+            // 3. Traduction placeholders
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const key = el.getAttribute('data-i18n-placeholder');
-                if (translations[lang][key]) {
-                    el.placeholder = translations[lang][key];
-                }
+                if (translations[lang][key]) el.placeholder = translations[lang][key];
             });
 
-            // 3. Traduction "Magique" des termes dynamiques (Catégories, types, etc.)
-            const dynamicTerms = {
-                "Réseaux": "Networking",
-                "Développement Web": "Web Development",
-                "Systèmes": "Systems",
-                "Sécurité": "Security",
-                "Formation": "Education",
-                "Hackathon": "Hackathon",
-                "Concours": "Competition",
-                "Certification": "Certification"
-            };
-
-            const reverseDynamicTerms = Object.fromEntries(Object.entries(dynamicTerms).map(([fr, en]) => [en, fr]));
-
-            // On scanne les titres de catégories et types de réalisations
-            document.querySelectorAll('h3, span.uppercase').forEach(el => {
-                const text = el.innerText.trim();
-                if (lang === 'en' && dynamicTerms[text]) {
-                    el.innerText = dynamicTerms[text];
-                } else if (lang === 'fr' && reverseDynamicTerms[text]) {
-                    el.innerText = reverseDynamicTerms[text];
-                }
+            // 4. Affichage des blocs dynamiques
+            document.querySelectorAll('.lang-fr').forEach(el => {
+                if (lang === 'fr') el.classList.remove('hidden');
+                else el.classList.add('hidden');
             });
-
-            // 4. Basculement des blocs de langue (FR/EN)
-            if (lang === 'en') {
-                document.querySelectorAll('.lang-fr').forEach(el => el.classList.add('hidden'));
-                document.querySelectorAll('.lang-en').forEach(el => el.classList.remove('hidden'));
-            } else {
-                document.querySelectorAll('.lang-en').forEach(el => el.classList.add('hidden'));
-                document.querySelectorAll('.lang-fr').forEach(el => el.classList.remove('hidden'));
-            }
-
-            document.getElementById('lang-text').innerText = lang === 'fr' ? 'EN' : 'FR';
-            localStorage.setItem('lang', lang);
+            document.querySelectorAll('.lang-en').forEach(el => {
+                if (lang === 'en') el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
         }
 
         function toggleLang() {
             const currentLang = localStorage.getItem('lang') || 'fr';
-            const newLang = currentLang === 'fr' ? 'en' : 'fr';
-            setLanguage(newLang);
+            setLanguage(currentLang === 'fr' ? 'en' : 'fr');
         }
 
-        // Initialisation de la langue au chargement
         document.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('lang') || 'fr';
             setLanguage(savedLang);
         });
+    </script>
     </script>
 </body>
 </html>
