@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Portfolio E. DevSecOps</title>
+    <title>Eliakym KODAH | DevSecOps Engineer</title>
+    
+    <!-- Favicon (Icône de l'onglet) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+    
     <!-- On inclut Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -37,7 +41,7 @@
     <!-- Header & Navbar -->
     <header class="fixed w-full top-0 bg-white/80 dark:bg-[#0b1120]/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800/50 z-50 transition-colors duration-500">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold tracking-tighter text-gray-900 dark:text-white">Portfolio</h1>
+            <h1 class="text-3xl font-extrabold tracking-tighter text-gray-900 dark:text-white">E. DevSecOps</h1>
             
             <nav class="hidden md:flex items-center gap-8">
                 <ul class="flex gap-8 font-semibold text-sm">
