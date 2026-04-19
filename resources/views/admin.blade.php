@@ -75,11 +75,27 @@
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Technologies</label>
-                        <input type="text" name="technologies" placeholder="Ex: HTML - CSS - React" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none">
+                        <input type="text" name="technologies" required placeholder="Ex: Laravel - Tailwind" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Lien (optionnel)</label>
-                        <input type="text" name="link" placeholder="Ex: dev.ekekem.com" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Lien du projet (sans https://)</label>
+                        <input type="text" name="link" placeholder="Ex: mon-projet.com" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Statut (FR)</label>
+                        <select name="status" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none">
+                            <option value="Terminé">✅ Terminé</option>
+                            <option value="En cours">🛠️ En cours</option>
+                            <option value="Maintenance">🚧 Maintenance</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Status (EN)</label>
+                        <select name="status_en" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none">
+                            <option value="Finished">✅ Finished</option>
+                            <option value="In Progress">🛠️ In Progress</option>
+                            <option value="Maintenance">🚧 Maintenance</option>
+                        </select>
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Image du projet</label>

@@ -85,6 +85,8 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
         $nouveauProjet->description_en = $request->description_en;
         $nouveauProjet->technologies = $request->technologies;
         $nouveauProjet->link = $request->link;
+        $nouveauProjet->status = $request->status ?? 'Terminé';
+        $nouveauProjet->status_en = $request->status_en ?? 'Finished';
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('projects', 'public');

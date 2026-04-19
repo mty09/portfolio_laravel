@@ -245,9 +245,16 @@
                     </div>
                 </div>
                 <div class="p-8 flex-1 flex flex-col">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                        <span class="lang-fr">{{ $projet->title }}</span>
-                        <span class="lang-en hidden">{{ $projet->title_en ?? $projet->title }}</span>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
+                        <span>
+                            <span class="lang-fr">{{ $projet->title }}</span>
+                            <span class="lang-en hidden">{{ $projet->title_en ?? $projet->title }}</span>
+                        </span>
+                        <!-- Badge Statut -->
+                        <span class="text-[10px] uppercase tracking-widest px-2 py-1 rounded-md bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 font-bold border border-cyan-200 dark:border-cyan-800">
+                            <span class="lang-fr">{{ $projet->status ?? 'Terminé' }}</span>
+                            <span class="lang-en hidden">{{ $projet->status_en ?? 'Finished' }}</span>
+                        </span>
                     </h3>
                     <div class="text-gray-600 dark:text-slate-400 mb-6 leading-relaxed flex-1">
                         <p class="lang-fr">{{ $projet->description }}</p>
