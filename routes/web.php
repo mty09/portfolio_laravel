@@ -4,8 +4,10 @@ use App\Models\Message;
 use App\Models\Skill; 
 use App\Models\Stat;
 use App\Models\Achievement;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 // --- PUBLIC ROUTES ---
 Route::get('/', function () {
@@ -28,6 +30,19 @@ Route::post('/contact', function (Request $request) {
     $nouveauMessage->email = $request->email;
     $nouveauMessage->message = $request->message;
     $nouveauMessage->save();
+
+    // ENVOI DE L'EMAIL DE NOTIFICATION
+    try {
+        Mail::to(env('MAIL_TO_ADDRESS', 'eliakymkodah09@gmail.com'))->send(new ContactMail([
+            'name' => $request->name,
+            'profession' => $request->profession,
+            'email' => $request->email,
+            'message' => $request->message,
+        ]));
+    } catch (\Exception $e) {
+        // On continue même si le mail échoue
+    }
+
     return redirect('/'); 
 })->middleware('throttle:3,1');
 
