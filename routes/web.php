@@ -109,4 +109,33 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
 
         return redirect('/admin');
     });
+
+    // --- CHANGEMENT DE MOT DE PASSE ---
+    Route::post('/password', function (Request $request) {
+        $user = \App\Models\User::first();
+        if ($user) {
+            $user->password = \Illuminate\Support\Facades\Hash::make($request->new_password);
+            $user->save();
+        }
+        return back()->with('success', 'Mot de passe modifié avec succès !');
+    });
+});
+
+// --- SETUP FINAL AUTOMATIQUE ---
+Route::get('/final-setup', function () {
+    // 1. Force les migrations
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
+
+    // 2. Création de l'Admin
+    \App\Models\User::create([
+        'name' => 'Admin',
+        'email' => 'admin@admin.com',
+        'password' => \Illuminate\Support\Facades\Hash::make('POrtfoLIO_2')
+    ]);
+
+    // 3. Quelques données de base pour vérifier que ça marche
+    \App\Models\Stat::create(['value' => '3+', 'label' => 'Projets']);
+    \App\Models\Skill::create(['category' => 'Tech', 'name' => 'Laravel', 'percentage' => 90]);
+
+    return "🚀 SETUP RÉUSSI ! <br> Tu peux maintenant te connecter sur /login avec <b>admin@admin.com</b> et <b>POrtfoLIO_2</b>";
 });

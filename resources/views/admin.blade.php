@@ -138,6 +138,21 @@
                     </form>
                 </div>
             </div>
+
+            <!-- SECTION SÉCURITÉ DISCRÈTE -->
+            <div class="mt-12 pt-8 border-t border-gray-200">
+                <button onclick="document.getElementById('security-form').classList.toggle('hidden')" class="text-xs text-gray-400 hover:text-gray-600 transition uppercase tracking-widest font-bold">
+                    Paramètres Avancés
+                </button>
+                <div id="security-form" class="hidden mt-6 bg-white p-6 rounded-3xl shadow-sm border border-gray-200 max-w-md">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">🔐 Changer le mot de passe</h3>
+                    <form action="/admin/password" method="POST" class="flex flex-col gap-4">
+                        @csrf
+                        <input type="password" name="new_password" required placeholder="Nouveau mot de passe" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-indigo-500 outline-none">
+                        <button type="submit" class="bg-gray-800 text-white font-bold py-2 px-6 rounded-xl hover:bg-black transition">Mettre à jour</button>
+                    </form>
+                </div>
+            </div>
         </section>
     </main>
 
