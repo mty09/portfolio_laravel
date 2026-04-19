@@ -110,3 +110,24 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
         return redirect('/admin');
     });
 });
+
+// --- ROUTE SECRÈTE DE DEPLOIEMENT ---
+Route::get('/setup-prod', function (\Illuminate\Http\Request $request) {
+    if ($request->query('token') !== 'DevSecOps2026') {
+        abort(403, 'Accès refusé');
+    }
+
+    // 1. Lancer les migrations
+    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+
+    // 2. Créer l'administrateur
+    $user = \App\Models\User::firstOrCreate(
+        ['email' => 'eliakymkodah09@gmail.com'],
+        [
+            'name' => 'Admin',
+            'password' => \Illuminate\Support\Facades\Hash::make('POrtfoLIO_2')
+        ]
+    );
+
+    return '✅ Base de données installée et compte Admin (admin@admin.com) créé avec succès ! Tu peux retourner sur la page d\'accueil.';
+});
