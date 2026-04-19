@@ -15,11 +15,13 @@ return new class extends Migration
         $table->id();
         $table->string('title');
         $table->text('description');
+        $table->string('technologies')->nullable(); // Ex: TypeScript - Tailwind
+        $table->string('link')->nullable(); // Ex: dev.ekekem.com
         $table->string('image_url')->nullable();
-        $table->string('status')->default('en cours'); // Ta super idée est là !
         $table->timestamps();
     });
     }
+
 
     /**
      * Reverse the migrations.

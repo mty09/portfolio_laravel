@@ -23,3 +23,7 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Ignorer la base de données SQLite pour la sécurité
+/database/database.sqlite
+/database/database.sqlite-journal
