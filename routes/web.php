@@ -1,17 +1,17 @@
 <?php
-use App\Models\Project; 
-use App\Models\Message; 
-use App\Models\Skill; 
+use App\Models\Project;
+use App\Models\Message;
+use App\Models\Skill;
 use App\Models\Stat;
 use App\Models\Achievement;
 use App\Mail\ContactMail;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
 // --- PUBLIC ROUTES ---
 Route::get('/', function () {
-    $projects = Project::all(); 
+    $projects = Project::all();
     $skills = Skill::all();
     $stats = Stat::all();
     $achievements = Achievement::all();
@@ -31,9 +31,9 @@ Route::post('/contact', function (Request $request) {
     $nouveauMessage->message = $request->message;
     $nouveauMessage->save();
 
-    // ENVOI DE L'EMAIL DE NOTIFICATION
+    // ENVOI DE L'EMAIL EN ARRIÈRE-PLAN (QUEUE)
     try {
-        Mail::to(env('MAIL_TO_ADDRESS', 'eliakymkodah09@gmail.com'))->send(new ContactMail([
+        Mail::to(env('MAIL_TO_ADDRESS', 'eliakymkodah09@gmail.com'))->queue(new ContactMail([
             'name' => $request->name,
             'profession' => $request->profession,
             'email' => $request->email,
@@ -43,7 +43,7 @@ Route::post('/contact', function (Request $request) {
         // On continue même si le mail échoue
     }
 
-    return redirect('/'); 
+    return redirect('/');
 })->middleware('throttle:3,1');
 
 // --- LOGIN SYSTEM ---
@@ -67,7 +67,7 @@ Route::post('/logout', function () {
 
 Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group(function () {
 
-    Route::get('/', function() {
+    Route::get('/', function () {
         return view('admin', [
             'messages' => Message::all(),
             'projects' => Project::all(),
@@ -85,14 +85,14 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
         $nouveauProjet->description_en = $request->description_en;
         $nouveauProjet->technologies = $request->technologies;
         $nouveauProjet->link = $request->link;
-        
+
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('projects', 'public');
             $nouveauProjet->image_url = $path;
         }
-        
+
         $nouveauProjet->save();
-        return redirect('/admin'); 
+        return redirect('/admin');
     });
 
     Route::post('/skill', function (Request $request) {
@@ -102,7 +102,7 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
         $nouvelleCompetence->category = $request->category;
         $nouvelleCompetence->percentage = $request->percentage ?? 80;
         $nouvelleCompetence->save();
-        return redirect('/admin'); 
+        return redirect('/admin');
     });
 
     // --- CV UPLOAD ---
@@ -118,7 +118,7 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
         $nouvelleStat->label = $request->label;
         $nouvelleStat->label_en = $request->label_en;
         $nouvelleStat->save();
-        return redirect('/admin'); 
+        return redirect('/admin');
     });
 
     Route::post('/achievement', function (Request $request) {
@@ -142,13 +142,17 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
     });
 
     Route::post('/delete', function (Request $request) {
-        $type = $request->type; 
+        $type = $request->type;
         $id = $request->id;
-        
-        if ($type === 'project') Project::destroy($id);
-        if ($type === 'skill') Skill::destroy($id);
-        if ($type === 'stat') Stat::destroy($id);
-        if ($type === 'achievement') Achievement::destroy($id);
+
+        if ($type === 'project')
+            Project::destroy($id);
+        if ($type === 'skill')
+            Skill::destroy($id);
+        if ($type === 'stat')
+            Stat::destroy($id);
+        if ($type === 'achievement')
+            Achievement::destroy($id);
 
         return redirect('/admin');
     });
