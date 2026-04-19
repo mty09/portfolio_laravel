@@ -105,10 +105,10 @@
 
             <!-- Liens Sociaux -->
             <div class="flex gap-4 pt-4">
-                <a href="#" class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#" class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://github.com/mty09" class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/eliakym-kodah-bba024370?utm_source=share_via&utm_content=profile&utm_medium=member_android" 
+                class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="eliakymkodah09@gmail.com" class="w-10 h-10 rounded-md bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl hover:bg-cyan-500 hover:text-white transition border border-cyan-500/30"><i class="fa-brands fa-envelope"></i></a>
             </div>
 
             <!-- Boutons d'action -->
@@ -329,7 +329,7 @@
                 btn_cv: "Télécharger CV",
                 hero_hello: "Bonjour, je suis",
                 hero_and: "Et je suis",
-                btn_hire: "Recrutez-moi",
+                btn_hire: "Voir Mes Projets",
                 btn_contact: "Contactez-moi",
                 stats_empty: "Aucune statistique pour le moment.",
                 journey_title_1: "Mon",
@@ -360,7 +360,7 @@
                 btn_cv: "Download CV",
                 hero_hello: "Hello, I'm",
                 hero_and: "And I'm a",
-                btn_hire: "Hire Me",
+                btn_hire: "See My Projects",
                 btn_contact: "Contact Me",
                 stats_empty: "No statistics at the moment.",
                 journey_title_1: "My",
