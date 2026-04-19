@@ -57,13 +57,21 @@
                 <h2 class="text-2xl font-extrabold text-purple-700 mb-6">🚀 Ajouter un Projet</h2>
                 <form action="/admin/project" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     @csrf
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Titre du Projet</label>
+                    <div class="md:col-span-1">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Titre (FR)</label>
                         <input type="text" name="title" required placeholder="Ex: Ekekem" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none">
                     </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Description</label>
-                        <textarea name="description" rows="3" required placeholder="Description de ton projet..." class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none"></textarea>
+                    <div class="md:col-span-1">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Title (EN)</label>
+                        <input type="text" name="title_en" placeholder="Ex: Ekekem Project" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none">
+                    </div>
+                    <div class="md:col-span-1">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Description (FR)</label>
+                        <textarea name="description" rows="3" required placeholder="Description en français..." class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none"></textarea>
+                    </div>
+                    <div class="md:col-span-1">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Description (EN)</label>
+                        <textarea name="description_en" rows="3" placeholder="English description..." class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-purple-500 outline-none"></textarea>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Technologies</label>
@@ -97,8 +105,12 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Nom</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Nom (FR)</label>
                             <input type="text" name="name" required placeholder="Ex: TCP/IP" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-blue-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Name (EN)</label>
+                            <input type="text" name="name_en" placeholder="Ex: TCP/IP Networking" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-blue-500 outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-1">Pourcentage (Maîtrise)</label>
@@ -118,10 +130,64 @@
                             <input type="text" name="value" required placeholder="Ex: 2+" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-pink-500 outline-none">
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Libellé</label>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Libellé (FR)</label>
                             <input type="text" name="label" required placeholder="Ex: Projets réalisés" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-pink-500 outline-none">
                         </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Label (EN)</label>
+                            <input type="text" name="label_en" placeholder="Ex: Completed Projects" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 focus:border-pink-500 outline-none">
+                        </div>
                         <button type="submit" class="bg-pink-600 text-white font-bold py-3 px-6 rounded-xl hover:bg-pink-700 transition">Ajouter</button>
+                    </form>
+                </div>
+
+                <!-- Formulaire : Ajouter une Réussite (Formation, Hackathon, Certif) -->
+                <div class="bg-white p-6 rounded-3xl shadow-lg border border-gray-100 md:col-span-2">
+                    <h2 class="text-xl font-extrabold text-amber-600 mb-4">🏆 Ajouter Formation / Hackathon / Certif</h2>
+                    <form action="/admin/achievement" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        @csrf
+                        <div class="md:col-span-1">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Type</label>
+                            <select name="type" required class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 outline-none">
+                                <option value="Formation">🎓 Formation</option>
+                                <option value="Hackathon">💻 Hackathon</option>
+                                <option value="Concours">🎖️ Concours</option>
+                                <option value="Certification">📜 Certification</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-1">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Titre / Nom (FR)</label>
+                            <input type="text" name="title" required placeholder="Ex: Master en Cybersécurité" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 outline-none">
+                        </div>
+                        <div class="md:col-span-1">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Title (EN)</label>
+                            <input type="text" name="title_en" placeholder="Ex: Master's in Cybersecurity" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Institution (FR)</label>
+                            <input type="text" name="institution" placeholder="Ex: École Polytechnique" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Institution (EN)</label>
+                            <input type="text" name="institution_en" placeholder="Ex: Polytechnic School" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Date / Année</label>
+                            <input type="text" name="date" placeholder="Ex: 2023 - 2024" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 outline-none">
+                        </div>
+                        <div class="md:col-span-1">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Description (FR)</label>
+                            <textarea name="description" rows="2" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 outline-none"></textarea>
+                        </div>
+                        <div class="md:col-span-1">
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Description (EN)</label>
+                            <textarea name="description_en" rows="2" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 outline-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Photo (pour Certif)</label>
+                            <input type="file" name="image" accept="image/*" class="w-full p-3 rounded-xl bg-gray-50 border border-gray-300 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100">
+                        </div>
+                        <button type="submit" class="md:col-span-3 bg-amber-600 text-white font-bold py-3 px-6 rounded-xl hover:bg-amber-700 transition shadow-lg shadow-amber-500/30">Ajouter à mon parcours</button>
                     </form>
                 </div>
 
@@ -171,6 +237,7 @@
                         <option value="project">Un Projet</option>
                         <option value="skill">Une Compétence</option>
                         <option value="stat">Une Statistique</option>
+                        <option value="achievement">Une Réussite (Formation/Hackathon/Certif)</option>
                     </select>
                 </div>
 
@@ -194,7 +261,8 @@
         const data = {
             project: @json($projects),
             skill: @json($skills),
-            stat: @json($stats)
+            stat: @json($stats),
+            achievement: @json($achievements)
         };
 
         const modal = document.getElementById('deleteModal');
@@ -225,7 +293,7 @@
                     const option = document.createElement('option');
                     option.value = item.id;
                     // On gère l'affichage du nom (title pour projet, name pour skill, label pour stat)
-                    option.textContent = type === 'project' ? item.title : (type === 'skill' ? item.name : item.label);
+                    option.textContent = type === 'project' || type === 'achievement' ? item.title : (type === 'skill' ? item.name : item.label);
                     itemSelect.appendChild(option);
                 });
                 itemContainer.classList.remove('hidden');

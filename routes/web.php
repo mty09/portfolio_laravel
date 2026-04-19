@@ -3,6 +3,7 @@ use App\Models\Project;
 use App\Models\Message; 
 use App\Models\Skill; 
 use App\Models\Stat;
+use App\Models\Achievement;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Route;
 
@@ -11,10 +12,12 @@ Route::get('/', function () {
     $projects = Project::all(); 
     $skills = Skill::all();
     $stats = Stat::all();
+    $achievements = Achievement::all();
     return view('welcome', [
         'projects' => $projects,
         'skills' => $skills,
-        'stats' => $stats
+        'stats' => $stats,
+        'achievements' => $achievements
     ]);
 });
 
@@ -54,14 +57,17 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
             'messages' => Message::all(),
             'projects' => Project::all(),
             'skills' => Skill::all(),
-            'stats' => Stat::all()
+            'stats' => Stat::all(),
+            'achievements' => Achievement::all()
         ]);
     });
 
     Route::post('/project', function (Request $request) {
         $nouveauProjet = new Project();
         $nouveauProjet->title = $request->title;
+        $nouveauProjet->title_en = $request->title_en;
         $nouveauProjet->description = $request->description;
+        $nouveauProjet->description_en = $request->description_en;
         $nouveauProjet->technologies = $request->technologies;
         $nouveauProjet->link = $request->link;
         
@@ -77,6 +83,7 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
     Route::post('/skill', function (Request $request) {
         $nouvelleCompetence = new Skill();
         $nouvelleCompetence->name = $request->name;
+        $nouvelleCompetence->name_en = $request->name_en;
         $nouvelleCompetence->category = $request->category;
         $nouvelleCompetence->percentage = $request->percentage ?? 80;
         $nouvelleCompetence->save();
@@ -90,13 +97,33 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
         }
         return redirect('/admin');
     });
-
     Route::post('/stat', function (Request $request) {
         $nouvelleStat = new Stat();
         $nouvelleStat->value = $request->value;
         $nouvelleStat->label = $request->label;
+        $nouvelleStat->label_en = $request->label_en;
         $nouvelleStat->save();
         return redirect('/admin'); 
+    });
+
+    Route::post('/achievement', function (Request $request) {
+        $achievement = new Achievement();
+        $achievement->type = $request->type;
+        $achievement->title = $request->title;
+        $achievement->title_en = $request->title_en;
+        $achievement->institution = $request->institution;
+        $achievement->institution_en = $request->institution_en;
+        $achievement->date = $request->date;
+        $achievement->description = $request->description;
+        $achievement->description_en = $request->description_en;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('achievements', 'public');
+            $achievement->image_url = $path;
+        }
+
+        $achievement->save();
+        return redirect('/admin');
     });
 
     Route::post('/delete', function (Request $request) {
@@ -106,6 +133,7 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
         if ($type === 'project') Project::destroy($id);
         if ($type === 'skill') Skill::destroy($id);
         if ($type === 'stat') Stat::destroy($id);
+        if ($type === 'achievement') Achievement::destroy($id);
 
         return redirect('/admin');
     });
@@ -119,5 +147,27 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
         }
         return back()->with('success', 'Mot de passe modifié avec succès !');
     });
+});
+
+// --- ROUTE DE RÉINITIALISATION TOTALE (À SUPPRIMER APRÈS USAGE) ---
+Route::get('/reset-db-full', function () {
+    try {
+        // 1. On vide tout et on recrée les tables
+        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
+
+        // 2. On recrée ton compte Admin par défaut
+        $user = new \App\Models\User();
+        $user->name = 'Admin';
+        $user->email = 'admin@example.com'; // Tu pourras le changer dans l'admin après
+        $user->password = \Illuminate\Support\Facades\Hash::make('password123'); // Change-le vite !
+        $user->save();
+
+        return "✅ Base de données RÉINITIALISÉE ! <br><br> 
+                👉 <b>Email :</b> admin@example.com <br> 
+                👉 <b>Pass :</b> password123 <br><br> 
+                <a href='/admin'>Se connecter à l'admin</a>";
+    } catch (\Exception $e) {
+        return "❌ Erreur lors de la réinitialisation : " . $e->getMessage();
+    }
 });
 

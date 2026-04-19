@@ -45,10 +45,11 @@
             
             <nav class="hidden md:flex items-center gap-8">
                 <ul class="flex gap-8 font-semibold text-sm">
-                    <li><a href="#home" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition border-b-2 border-transparent hover:border-cyan-500 pb-1">Home</a></li>
-                    <li><a href="#skills" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition border-b-2 border-transparent hover:border-cyan-500 pb-1">Skills</a></li>
-                    <li><a href="#projets" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition border-b-2 border-transparent hover:border-cyan-500 pb-1">Portfolio</a></li>
-                    <li><a href="#contact" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition border-b-2 border-transparent hover:border-cyan-500 pb-1">Contact</a></li>
+                    <li><a href="#home" data-i18n="nav_home" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition border-b-2 border-transparent hover:border-cyan-500 pb-1">Home</a></li>
+                    <li><a href="#journey" data-i18n="nav_journey" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition border-b-2 border-transparent hover:border-cyan-500 pb-1">Journey</a></li>
+                    <li><a href="#skills" data-i18n="nav_skills" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition border-b-2 border-transparent hover:border-cyan-500 pb-1">Skills</a></li>
+                    <li><a href="#projets" data-i18n="nav_portfolio" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition border-b-2 border-transparent hover:border-cyan-500 pb-1">Portfolio</a></li>
+                    <li><a href="#contact" data-i18n="nav_contact" class="hover:text-cyan-500 dark:hover:text-cyan-400 transition border-b-2 border-transparent hover:border-cyan-500 pb-1">Contact</a></li>
                 </ul>
                 
                 <div class="flex items-center gap-6 pl-6 border-l border-gray-300 dark:border-slate-700">
@@ -58,9 +59,14 @@
                         <i id="theme-icon-dark" class="fa-solid fa-moon block dark:hidden"></i>
                     </button>
 
+                    <!-- BOUTON LANGUE -->
+                    <button onclick="toggleLang()" class="flex items-center gap-1.5 text-xs font-bold text-gray-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition border border-gray-300 dark:border-slate-700 px-2 py-1 rounded">
+                        <span id="lang-text">EN</span> <i class="fa-solid fa-globe"></i>
+                    </button>
+
                     <!-- BOUTON TELECHARGER CV -->
                     <a href="/storage/cv/mon_cv.pdf" target="_blank" class="px-5 py-2.5 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-lg transition shadow-lg shadow-pink-500/30 flex items-center gap-2 text-sm">
-                        Download CV <i class="fa-solid fa-download"></i>
+                        <span data-i18n="btn_cv">Download CV</span> <i class="fa-solid fa-download"></i>
                     </a>
                 </div>
             </nav>
@@ -84,14 +90,17 @@
 
         <!-- Colonne Droite : Le Texte -->
         <div class="flex-1 space-y-6">
-            <p class="text-xl font-bold text-gray-500 dark:text-slate-400 tracking-wider">Hello, I'm</p>
+            <p class="text-xl font-bold text-gray-500 dark:text-slate-400 tracking-wider" data-i18n="hero_hello">Hello, I'm</p>
             <h2 class="text-6xl font-black text-gray-900 dark:text-white tracking-tight">Eliakym KODAH</h2>
             <h3 class="text-2xl font-bold text-gray-700 dark:text-slate-300">
-                And I'm a <span class="text-cyan-500">DevSecOps Engineer |</span>
+                <span data-i18n="hero_and">And I'm a</span> <span class="text-cyan-500">DevSecOps Engineer |</span>
             </h3>
             
-            <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed max-w-lg mt-6">
+            <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed max-w-lg mt-6 lang-fr">
                 Développeur et technicien en Réseaux, Infrastructure et Sécurité. Je suis passionné par la création de solutions web robustes et la protection des systèmes d'information. Actuellement en préparation du CCNA.
+            </p>
+            <p class="text-lg text-gray-600 dark:text-slate-400 leading-relaxed max-w-lg mt-6 lang-en hidden">
+                Developer and technician in Networks, Infrastructure and Security. I am passionate about creating robust web solutions and protecting information systems. Currently preparing for CCNA.
             </p>
 
             <!-- Liens Sociaux -->
@@ -104,8 +113,8 @@
 
             <!-- Boutons d'action -->
             <div class="pt-6 flex gap-4">
-                <a href="#projets" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-bold rounded-full transition shadow-lg shadow-cyan-500/40">Hire Me</a>
-                <a href="#contact" class="px-8 py-3 bg-transparent hover:bg-gray-800 text-cyan-500 dark:text-cyan-400 font-bold rounded-full border border-cyan-500 transition">Contact Me</a>
+                <a href="#projets" data-i18n="btn_hire" class="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-bold rounded-full transition shadow-lg shadow-cyan-500/40">Hire Me</a>
+                <a href="#contact" data-i18n="btn_contact" class="px-8 py-3 bg-transparent hover:bg-gray-800 text-cyan-500 dark:text-cyan-400 font-bold rounded-full border border-cyan-500 transition">Contact Me</a>
             </div>
         </div>
     </section>
@@ -116,23 +125,78 @@
             @foreach($stats as $stat)
             <div class="flex items-center gap-4 border-l-2 border-gray-200 dark:border-slate-800 pl-6 first:border-0 first:pl-0">
                 <h3 class="text-4xl font-black text-gray-900 dark:text-white">{{ $stat->value }}</h3>
-                <p class="text-sm text-gray-500 dark:text-slate-400 font-medium w-24 leading-tight">{{ $stat->label }}</p>
+                <p class="text-sm text-gray-500 dark:text-slate-400 font-medium w-24 leading-tight lang-fr">{{ $stat->label }}</p>
+                <p class="text-sm text-gray-500 dark:text-slate-400 font-medium w-24 leading-tight lang-en hidden">{{ $stat->label_en ?? $stat->label }}</p>
             </div>
             @endforeach
             
             @if($stats->isEmpty())
-                <p class="text-gray-500 dark:text-slate-500 w-full text-center">Aucune statistique pour le moment.</p>
+                <p class="text-gray-500 dark:text-slate-500 w-full text-center" data-i18n="stats_empty">Aucune statistique pour le moment.</p>
             @endif
         </div>
     </section>
 
+    <!-- Parcours : Formations, Hackathons & Certifications -->
+    <section id="journey" class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="text-4xl font-black mb-16 text-center text-gray-900 dark:text-white"><span data-i18n="journey_title_1">My</span> <span class="text-cyan-500" data-i18n="journey_title_2">Journey</span> <span data-i18n="journey_title_3">& Certifications</span></h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($achievements as $ach)
+            <div class="bg-white dark:bg-slate-900/50 rounded-3xl p-8 border border-gray-200 dark:border-slate-800 shadow-xl transition-all duration-300 hover:border-cyan-500/50 group flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-500 text-xs font-bold uppercase tracking-widest border border-cyan-500/20">
+                        {{ $ach->type }}
+                    </span>
+                    <span class="text-sm font-bold text-gray-400 dark:text-slate-500">{{ $ach->date }}</span>
+                </div>
+                
+                <h3 class="text-xl font-black text-gray-900 dark:text-white mb-2 group-hover:text-cyan-500 transition-colors">
+                    <span class="lang-fr">{{ $ach->title }}</span>
+                    <span class="lang-en hidden">{{ $ach->title_en ?? $ach->title }}</span>
+                </h3>
+                <p class="text-indigo-600 dark:text-cyan-400 font-bold text-sm mb-4">
+                    <span class="lang-fr">{{ $ach->institution }}</span>
+                    <span class="lang-en hidden">{{ $ach->institution_en ?? $ach->institution }}</span>
+                </p>
+                
+                @if($ach->description)
+                <div class="text-gray-600 dark:text-slate-400 text-sm leading-relaxed mb-6 flex-1 italic">
+                    <p class="lang-fr">"{{ $ach->description }}"</p>
+                    <p class="lang-en hidden">"{{ $ach->description_en ?? $ach->description }}"</p>
+                </div>
+                @endif
+
+                @if($ach->image_url)
+                <div class="mt-auto pt-6 border-t border-gray-100 dark:border-slate-800">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Verification / Preview</p>
+                    <div class="relative group/img overflow-hidden rounded-xl border border-gray-200 dark:border-slate-700">
+                        <img src="{{ asset('storage/' . $ach->image_url) }}" alt="Certification" class="w-full h-32 object-cover grayscale group-hover/img:grayscale-0 transition duration-500">
+                        <div class="absolute inset-0 bg-cyan-500/20 opacity-0 group-hover/img:opacity-100 transition duration-300 flex items-center justify-center">
+                            <a href="{{ asset('storage/' . $ach->image_url) }}" target="_blank" class="bg-white text-gray-900 p-2 rounded-full shadow-lg">
+                                <i class="fa-solid fa-expand text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            </div>
+            @endforeach
+        </div>
+
+        @if($achievements->isEmpty())
+            <div class="text-center py-10 bg-gray-50 dark:bg-slate-900/30 rounded-3xl border-2 border-dashed border-gray-200 dark:border-slate-800">
+                <p class="text-gray-500 dark:text-slate-500 font-medium" data-i18n="journey_empty">Aucune formation ou réalisation pour le moment.</p>
+            </div>
+        @endif
+    </section>
+
     <!-- Compétences avec Barres de Pourcentage -->
     <section id="skills" class="py-24 px-6 max-w-7xl mx-auto">
-        <h2 class="text-4xl font-black mb-16 text-center text-gray-900 dark:text-white">Technical <span class="text-cyan-500">Skills</span></h2>
+        <h2 class="text-4xl font-black mb-16 text-center text-gray-900 dark:text-white"><span data-i18n="skills_title_1">Technical</span> <span class="text-cyan-500" data-i18n="skills_title_2">Skills</span></h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="flex flex-wrap justify-center gap-10">
             @foreach($skills->groupBy('category') as $category => $categorySkills)
-            <div class="bg-white dark:bg-slate-900/50 p-8 rounded-3xl border border-gray-200 dark:border-slate-800 shadow-xl transition-colors duration-500">
+            <div class="flex-1 min-w-[300px] max-w-[400px] bg-white dark:bg-slate-900/50 p-8 rounded-3xl border border-gray-200 dark:border-slate-800 shadow-xl transition-colors duration-500">
                 <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 border-b-2 border-cyan-500/30 pb-4">
                     {{ $category }}
                 </h3>
@@ -140,7 +204,8 @@
                     @foreach($categorySkills as $skill)
                     <li>
                         <div class="flex justify-between items-center mb-2">
-                            <span class="font-bold text-gray-700 dark:text-slate-300">{{ $skill->name }}</span>
+                            <span class="font-bold text-gray-700 dark:text-slate-300 lang-fr">{{ $skill->name }}</span>
+                            <span class="font-bold text-gray-700 dark:text-slate-300 lang-en hidden">{{ $skill->name_en ?? $skill->name }}</span>
                             <span class="text-sm font-bold text-cyan-500">{{ $skill->percentage ?? 80 }}%</span>
                         </div>
                         <!-- La Barre de Pourcentage -->
@@ -161,7 +226,7 @@
 
     <!-- Projets -->
     <section id="projets" class="py-24 px-6 max-w-7xl mx-auto">
-        <h2 class="text-4xl font-black mb-16 text-center text-gray-900 dark:text-white">Latest <span class="text-cyan-500">Projects</span></h2>
+        <h2 class="text-4xl font-black mb-16 text-center text-gray-900 dark:text-white"><span data-i18n="portfolio_title_1">Latest</span> <span class="text-cyan-500" data-i18n="portfolio_title_2">Projects</span></h2>
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
             @foreach($projects as $projet)
@@ -175,17 +240,23 @@
                     <!-- Overlay au survol -->
                     <div class="absolute inset-0 bg-cyan-900/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
                         @if($projet->link)
-                        <a href="https://{{ $projet->link }}" target="_blank" class="px-6 py-2 bg-white text-cyan-600 font-bold rounded-full shadow-lg">Voir le site</a>
+                        <a href="https://{{ $projet->link }}" target="_blank" data-i18n="btn_view_site" class="px-6 py-2 bg-white text-cyan-600 font-bold rounded-full shadow-lg">Voir le site</a>
                         @endif
                     </div>
                 </div>
                 <div class="p-8 flex-1 flex flex-col">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">{{ $projet->title }}</h3>
-                    <p class="text-gray-600 dark:text-slate-400 mb-6 leading-relaxed flex-1">{{ $projet->description }}</p>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                        <span class="lang-fr">{{ $projet->title }}</span>
+                        <span class="lang-en hidden">{{ $projet->title_en ?? $projet->title }}</span>
+                    </h3>
+                    <div class="text-gray-600 dark:text-slate-400 mb-6 leading-relaxed flex-1">
+                        <p class="lang-fr">{{ $projet->description }}</p>
+                        <p class="lang-en hidden">{{ $projet->description_en ?? $projet->description }}</p>
+                    </div>
                     
                     @if($projet->technologies)
                     <div>
-                        <p class="text-xs font-bold text-cyan-500 uppercase tracking-wider mb-2">Tech Stack</p>
+                        <p class="text-xs font-bold text-cyan-500 uppercase tracking-wider mb-2" data-i18n="tech_stack">Tech Stack</p>
                         <p class="text-gray-800 dark:text-slate-300 text-sm bg-gray-100 dark:bg-[#0b1120] inline-block px-4 py-2 rounded-lg border border-gray-200 dark:border-slate-700 font-mono">{{ $projet->technologies }}</p>
                     </div>
                     @endif
@@ -201,32 +272,35 @@
 
     <!-- Contact -->
     <section id="contact" class="py-24 px-6 max-w-4xl mx-auto text-center mb-20">
-        <h2 class="text-4xl font-black mb-6 text-gray-900 dark:text-white">Contact <span class="text-cyan-500">Me</span></h2>
-        <p class="text-lg text-gray-600 dark:text-slate-400 mb-12">Vous avez un projet en tête ou une question ? Laissez-moi un message !</p>
+        <h2 class="text-4xl font-black mb-6 text-gray-900 dark:text-white"><span data-i18n="contact_title_1">Contact</span> <span class="text-cyan-500" data-i18n="contact_title_2">Me</span></h2>
+        <p class="text-lg text-gray-600 dark:text-slate-400 mb-12" data-i18n="contact_subtitle">Vous avez un projet en tête ou une question ? Laissez-moi un message !</p>
         
         <form action="/contact" method="POST" class="bg-white dark:bg-slate-900/50 p-10 rounded-3xl border border-gray-200 dark:border-slate-800 shadow-2xl flex flex-col gap-6 text-left transition-colors duration-500">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <input type="text" name="name" required placeholder="Full Name" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-[#0b1120] text-gray-900 dark:text-white border border-gray-300 dark:border-slate-700 focus:border-cyan-500 outline-none transition text-lg">
+                    <input type="text" name="name" required placeholder="Full Name" data-i18n-placeholder="placeholder_name" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-[#0b1120] text-gray-900 dark:text-white border border-gray-300 dark:border-slate-700 focus:border-cyan-500 outline-none transition text-lg">
                 </div>
                 <div>
-                    <input type="text" name="profession" required placeholder="Profession / Company" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-[#0b1120] text-gray-900 dark:text-white border border-gray-300 dark:border-slate-700 focus:border-cyan-500 outline-none transition text-lg">
+                    <input type="text" name="profession" required placeholder="Profession / Company" data-i18n-placeholder="placeholder_company" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-[#0b1120] text-gray-900 dark:text-white border border-gray-300 dark:border-slate-700 focus:border-cyan-500 outline-none transition text-lg">
                 </div>
             </div>
             <div>
-                <input type="email" name="email" required placeholder="Email Address" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-[#0b1120] text-gray-900 dark:text-white border border-gray-300 dark:border-slate-700 focus:border-cyan-500 outline-none transition text-lg">
+                <input type="email" name="email" required placeholder="Email Address" data-i18n-placeholder="placeholder_email" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-[#0b1120] text-gray-900 dark:text-white border border-gray-300 dark:border-slate-700 focus:border-cyan-500 outline-none transition text-lg">
             </div>
             <div>
-                <textarea name="message" rows="6" required placeholder="Your Message..." class="w-full p-4 rounded-xl bg-gray-50 dark:bg-[#0b1120] text-gray-900 dark:text-white border border-gray-300 dark:border-slate-700 focus:border-cyan-500 outline-none transition resize-none text-lg"></textarea>
+                <textarea name="message" rows="6" required placeholder="Your Message..." data-i18n-placeholder="placeholder_message" class="w-full p-4 rounded-xl bg-gray-50 dark:bg-[#0b1120] text-gray-900 dark:text-white border border-gray-300 dark:border-slate-700 focus:border-cyan-500 outline-none transition resize-none text-lg"></textarea>
             </div>
             
-            <button type="submit" class="mt-4 bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 text-lg shadow-lg shadow-cyan-500/30">Send Message <i class="fa-solid fa-paper-plane ml-2"></i></button>
+            <button type="submit" class="mt-4 bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 text-lg shadow-lg shadow-cyan-500/30">
+                <span data-i18n="btn_send">Send Message</span> <i class="fa-solid fa-paper-plane ml-2"></i>
+            </button>
         </form>
     </section>
 
-    <!-- SCRIPT POUR LE DARK MODE -->
+    <!-- SCRIPT POUR LE DARK MODE & LANGUE -->
     <script>
+        // --- GESTION DU THÈME ---
         function toggleTheme() {
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
@@ -236,6 +310,138 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
+
+        // --- GESTION DE LA LANGUE ---
+        const translations = {
+            fr: {
+                nav_home: "Accueil",
+                nav_journey: "Parcours",
+                nav_skills: "Compétences",
+                nav_portfolio: "Projets",
+                nav_contact: "Contact",
+                btn_cv: "Télécharger CV",
+                hero_hello: "Bonjour, je suis",
+                hero_and: "Et je suis",
+                btn_hire: "Recrutez-moi",
+                btn_contact: "Contactez-moi",
+                stats_empty: "Aucune statistique pour le moment.",
+                journey_title_1: "Mon",
+                journey_title_2: "Parcours",
+                journey_title_3: "& Certifications",
+                journey_empty: "Aucune formation ou réalisation pour le moment.",
+                skills_title_1: "Compétences",
+                skills_title_2: "Techniques",
+                portfolio_title_1: "Derniers",
+                portfolio_title_2: "Projets",
+                btn_view_site: "Voir le site",
+                tech_stack: "Technologies",
+                contact_title_1: "Contactez-",
+                contact_title_2: "Moi",
+                contact_subtitle: "Vous avez un projet en tête ou une question ? Laissez-moi un message !",
+                placeholder_name: "Nom Complet",
+                placeholder_company: "Profession / Entreprise",
+                placeholder_email: "Adresse Email",
+                placeholder_message: "Votre Message...",
+                btn_send: "Envoyer Message"
+            },
+            en: {
+                nav_home: "Home",
+                nav_journey: "Journey",
+                nav_skills: "Skills",
+                nav_portfolio: "Portfolio",
+                nav_contact: "Contact",
+                btn_cv: "Download CV",
+                hero_hello: "Hello, I'm",
+                hero_and: "And I'm a",
+                btn_hire: "Hire Me",
+                btn_contact: "Contact Me",
+                stats_empty: "No statistics at the moment.",
+                journey_title_1: "My",
+                journey_title_2: "Journey",
+                journey_title_3: "& Certifications",
+                journey_empty: "No education or achievement at the moment.",
+                skills_title_1: "Technical",
+                skills_title_2: "Skills",
+                portfolio_title_1: "Latest",
+                portfolio_title_2: "Projects",
+                btn_view_site: "Visit Website",
+                tech_stack: "Tech Stack",
+                contact_title_1: "Contact",
+                contact_title_2: "Me",
+                contact_subtitle: "Have a project in mind or a question? Leave me a message!",
+                placeholder_name: "Full Name",
+                placeholder_company: "Profession / Company",
+                placeholder_email: "Email Address",
+                placeholder_message: "Your Message...",
+                btn_send: "Send Message"
+            }
+        };
+
+        function setLanguage(lang) {
+            // 1. Traduction des éléments avec data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+
+            // 2. Traduction des placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+
+            // 3. Traduction "Magique" des termes dynamiques (Catégories, types, etc.)
+            const dynamicTerms = {
+                "Réseaux": "Networking",
+                "Développement Web": "Web Development",
+                "Systèmes": "Systems",
+                "Sécurité": "Security",
+                "Formation": "Education",
+                "Hackathon": "Hackathon",
+                "Concours": "Competition",
+                "Certification": "Certification"
+            };
+
+            const reverseDynamicTerms = Object.fromEntries(Object.entries(dynamicTerms).map(([fr, en]) => [en, fr]));
+
+            // On scanne les titres de catégories et types de réalisations
+            document.querySelectorAll('h3, span.uppercase').forEach(el => {
+                const text = el.innerText.trim();
+                if (lang === 'en' && dynamicTerms[text]) {
+                    el.innerText = dynamicTerms[text];
+                } else if (lang === 'fr' && reverseDynamicTerms[text]) {
+                    el.innerText = reverseDynamicTerms[text];
+                }
+            });
+
+            // 4. Basculement des blocs de langue (FR/EN)
+            if (lang === 'en') {
+                document.querySelectorAll('.lang-fr').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('.lang-en').forEach(el => el.classList.remove('hidden'));
+            } else {
+                document.querySelectorAll('.lang-en').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('.lang-fr').forEach(el => el.classList.remove('hidden'));
+            }
+
+            document.getElementById('lang-text').innerText = lang === 'fr' ? 'EN' : 'FR';
+            localStorage.setItem('lang', lang);
+        }
+
+        function toggleLang() {
+            const currentLang = localStorage.getItem('lang') || 'fr';
+            const newLang = currentLang === 'fr' ? 'en' : 'fr';
+            setLanguage(newLang);
+        }
+
+        // Initialisation de la langue au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('lang') || 'fr';
+            setLanguage(savedLang);
+        });
     </script>
 </body>
 </html>
