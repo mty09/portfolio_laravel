@@ -169,26 +169,3 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->group
         return back()->with('success', 'Mot de passe modifié avec succès !');
     });
 });
-
-// --- ROUTE DE RÉINITIALISATION TOTALE (À SUPPRIMER APRÈS USAGE) ---
-Route::get('/reset-db-full', function () {
-    try {
-        // 1. On vide tout et on recrée les tables
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
-
-        // 2. On recrée ton compte Admin par défaut
-        $user = new \App\Models\User();
-        $user->name = 'Admin';
-        $user->email = 'admin@example.com'; // Tu pourras le changer dans l'admin après
-        $user->password = \Illuminate\Support\Facades\Hash::make('password123'); // Change-le vite !
-        $user->save();
-
-        return "✅ Base de données RÉINITIALISÉE ! <br><br> 
-                👉 <b>Email :</b> admin@example.com <br> 
-                👉 <b>Pass :</b> password123 <br><br> 
-                <a href='/admin'>Se connecter à l'admin</a>";
-    } catch (\Exception $e) {
-        return "❌ Erreur lors de la réinitialisation : " . $e->getMessage();
-    }
-});
-
