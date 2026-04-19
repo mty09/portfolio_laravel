@@ -121,7 +121,7 @@
 
     <!-- Statistiques (Alignées comme sur l'image) -->
     <section class="border-y border-gray-200 dark:border-slate-800 bg-white dark:bg-[#0b1120] transition-colors duration-500">
-        <div class="max-w-7xl mx-auto px-6 py-12 flex justify-between items-center flex-wrap gap-8">
+        <div class="max-w-7xl mx-auto px-6 py-12 flex justify-center items-center flex-wrap gap-12 md:gap-24">
             @foreach($stats as $stat)
             <div class="flex items-center gap-4 border-l-2 border-gray-200 dark:border-slate-800 pl-6 first:border-0 first:pl-0">
                 <h3 class="text-4xl font-black text-gray-900 dark:text-white">{{ $stat->value }}</h3>
@@ -140,7 +140,7 @@
     <section id="journey" class="py-24 px-6 max-w-7xl mx-auto">
         <h2 class="text-4xl font-black mb-16 text-center text-gray-900 dark:text-white"><span data-i18n="journey_title_1">My</span> <span class="text-cyan-500" data-i18n="journey_title_2">Journey</span> <span data-i18n="journey_title_3">& Certifications</span></h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
             @foreach($achievements as $ach)
             <div class="bg-white dark:bg-slate-900/50 rounded-3xl p-8 border border-gray-200 dark:border-slate-800 shadow-xl transition-all duration-300 hover:border-cyan-500/50 group flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
@@ -228,7 +228,7 @@
     <section id="projets" class="py-24 px-6 max-w-7xl mx-auto">
         <h2 class="text-4xl font-black mb-16 text-center text-gray-900 dark:text-white"><span data-i18n="portfolio_title_1">Latest</span> <span class="text-cyan-500" data-i18n="portfolio_title_2">Projects</span></h2>
         
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center justify-center">
             @foreach($projects as $projet)
             <div class="bg-white dark:bg-slate-900/80 rounded-3xl overflow-hidden border border-gray-200 dark:border-slate-800 shadow-xl group flex flex-col transition-colors duration-500 hover:-translate-y-2">
                 <div class="h-64 bg-gray-200 dark:bg-slate-800 relative overflow-hidden">
