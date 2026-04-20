@@ -39,7 +39,7 @@
 <body class="bg-gray-50 text-gray-900 dark:bg-[#0b1120] dark:text-slate-200 font-sans antialiased transition-colors duration-500 selection:bg-cyan-500 selection:text-white">
 
     <!-- Header & Navbar -->
-    <header class="fixed w-full top-0 bg-white/80 dark:bg-[#0b1120]/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800/50 z-50 transition-colors duration-500">
+    <header class="fixed w-full top-0 bg-white dark:bg-[#0b1120] border-b border-gray-200 dark:border-slate-800/50 z-50 transition-colors duration-500">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-3xl font-extrabold tracking-tighter text-gray-900 dark:text-white">E. DevSecOps</h1>
             
@@ -73,7 +73,7 @@
         </div>
 
         <!-- MENU MOBILE OVERLAY -->
-        <div id="mobile-menu" class="hidden fixed inset-0 top-[72px] bg-white dark:bg-[#0b1120] z-40 p-6 flex flex-col gap-8 md:hidden transition-all duration-300 border-t border-gray-100 dark:border-slate-800">
+        <div id="mobile-menu" class="hidden fixed inset-0 top-[72px] bg-white dark:bg-[#0b1120] z-40 p-6 flex flex-col gap-8 md:hidden transition-all duration-300 border-t border-gray-100 dark:border-slate-800 shadow-2xl">
             <ul class="flex flex-col gap-6 font-bold text-lg">
                 <li><a href="#home" onclick="toggleMobileMenu()" data-i18n="nav_home">Home</a></li>
                 <li><a href="#journey" onclick="toggleMobileMenu()" data-i18n="nav_journey">Journey</a></li>
@@ -100,7 +100,6 @@
                     <span data-i18n="btn_cv">Download CV</span> <i class="fa-solid fa-download"></i>
                 </a>
             </div>
-        </div>
         </div>
     </header>
 
@@ -339,86 +338,26 @@
     <script>
         // --- GESTION DU THÈME ---
         function toggleTheme() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        // --- GESTION DE LA LANGUE ---
-        const translations = {
-            fr: {
-                nav_home: "Accueil",
-                nav_journey: "Parcours",
-                nav_skills: "Compétences",
-                nav_portfolio: "Projets",
-                nav_contact: "Contact",
-                btn_cv: "Télécharger CV",
-                hero_hello: "Bonjour, je suis",
-                hero_and: "Et je suis",
-                btn_hire: "Voir Mes Projets",
-                btn_contact: "Contactez-moi",
-                stats_empty: "Aucune statistique pour le moment.",
-                journey_title_1: "Mon",
-                journey_title_2: "Parcours",
-                journey_title_3: "& Certifications",
-                journey_empty: "Aucune formation ou réalisation pour le moment.",
-                skills_title_1: "Compétences",
-                skills_title_2: "Techniques",
-                portfolio_title_1: "Derniers",
-                portfolio_title_2: "Projets",
-                btn_view_site: "Voir le site",
-                tech_stack: "Technologies",
-                contact_title_1: "Contactez-",
-                contact_title_2: "Moi",
-                contact_subtitle: "Vous avez un projet en tête ou une question ? Laissez-moi un message !",
-                placeholder_name: "Nom Complet",
-                placeholder_company: "Profession / Entreprise",
-                placeholder_email: "Adresse Email",
-                placeholder_message: "Votre Message...",
-                btn_send: "Envoyer Message"
-            },
-            en: {
-                nav_home: "Home",
-                nav_journey: "Journey",
-                nav_skills: "Skills",
-                nav_portfolio: "Portfolio",
-                nav_contact: "Contact",
-                btn_cv: "Download CV",
-                hero_hello: "Hello, I'm",
-                hero_and: "And I'm a",
-                btn_hire: "See My Projects",
-                btn_contact: "Contact Me",
-                stats_empty: "No statistics at the moment.",
-                journey_title_1: "My",
-                journey_title_2: "Journey",
-                journey_title_3: "& Certifications",
-                journey_empty: "No education or achievement at the moment.",
-                skills_title_1: "Technical",
-                skills_title_2: "Skills",
-                portfolio_title_1: "Latest",
-                portfolio_title_2: "Projects",
-                btn_view_site: "Visit Website",
-                tech_stack: "Tech Stack",
-                contact_title_1: "Contact",
-                contact_title_2: "Me",
-                contact_subtitle: "Have a project in mind or a question? Leave me a message!",
-                placeholder_name: "Full Name",
-                placeholder_company: "Profession / Company",
-                placeholder_email: "Email Address",
-                placeholder_message: "Your Message...",
-                btn_send: "Send Message"
-            }
-        };
-
-    <script>
-        // --- GESTION DU THÈME ---
-        function toggleTheme() {
             const isDark = document.documentElement.classList.toggle('dark');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            // Mise à jour des icônes (desktop & mobile)
+            updateThemeIcons(isDark);
+        }
+
+        function updateThemeIcons(isDark) {
+            const lightIcons = ['theme-icon-light', 'mobile-theme-icon-light'];
+            const darkIcons = ['theme-icon-dark', 'mobile-theme-icon-dark'];
+            
+            lightIcons.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) isDark ? el.classList.remove('hidden') : el.classList.add('hidden');
+            });
+            
+            darkIcons.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) isDark ? el.classList.add('hidden') : el.classList.remove('hidden');
+            });
         }
 
         // --- GESTION DU MENU MOBILE ---
@@ -451,7 +390,7 @@
                 placeholder_email: "Adresse Email", placeholder_message: "Votre Message...", btn_send: "Envoyer Message"
             },
             en: {
-                nav_home: "Home", nav_journey: "Journey", nav_skills: "Skills", nav_portfolio: "Portfolio", nav_contact: "Contact",
+                nav_home: "Home", nav_journey: "Journey", nav_skills: "Skills", nav_portfolio: "Projects", nav_contact: "Contact",
                 btn_cv: "Download CV", hero_hello: "Hello, I'm", hero_and: "And I'm a", btn_hire: "See My Projects",
                 btn_contact: "Contact Me", stats_empty: "No statistics at the moment.",
                 journey_title_1: "My", journey_title_2: "Journey", journey_title_3: "& Certifications",
@@ -479,13 +418,13 @@
             // 2. Traduction statique (data-i18n)
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) el.innerText = translations[lang][key];
+                if (translations[lang] && translations[lang][key]) el.innerText = translations[lang][key];
             });
 
             // 3. Traduction placeholders
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const key = el.getAttribute('data-i18n-placeholder');
-                if (translations[lang][key]) el.placeholder = translations[lang][key];
+                if (translations[lang] && translations[lang][key]) el.placeholder = translations[lang][key];
             });
 
             // 4. Affichage des blocs dynamiques
@@ -507,8 +446,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('lang') || 'fr';
             setLanguage(savedLang);
+            
+            // Initialiser les icônes de thème au chargement
+            const isDark = document.documentElement.classList.contains('dark');
+            updateThemeIcons(isDark);
         });
-    </script>
     </script>
 </body>
 </html>
